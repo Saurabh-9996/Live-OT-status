@@ -16,4 +16,9 @@ export interface PatientRecord {
   lastUpdated: number;
 }
 
-export type ViewMode = 'STAFF' | 'DISPLAY';
+export type ViewMode = 'LOGIN' | 'STAFF' | 'DISPLAY';
+
+export interface UserSession {
+  role: 'STAFF' | 'DISPLAY';
+  id: string;
+}

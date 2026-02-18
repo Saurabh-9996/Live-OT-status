@@ -22,10 +22,9 @@ export const StaffUpdateForm: React.FC = () => {
     }
 
     const updated = dbService.updateRecord(uhid, name, status);
-    setRecords([...updated]); // Create new array reference to trigger re-render
-    setMessage({ text: `Successfully updated ${name}`, type: 'success' });
+    setRecords([...updated]); 
+    setMessage({ text: `Update successful for: ${name}`, type: 'success' });
     
-    // Clear form
     setUhid('');
     setName('');
     setStatus(OTStatus.WAITING);
@@ -41,56 +40,56 @@ export const StaffUpdateForm: React.FC = () => {
   };
 
   const handleDelete = (uhid: string) => {
-    // Removed confirm() as per user request for immediate deletion
+    // Immediate deletion logic as requested
     const updated = dbService.deleteRecord(uhid);
-    setRecords([...updated]); // Create new array reference to trigger re-render
+    setRecords([...updated]);
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4 md:p-8 space-y-8">
-      <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-slate-100">
-        <h2 className="text-2xl font-bold text-blue-900 mb-6 flex items-center gap-2">
-          <i className="fas fa-edit text-blue-600"></i> Staff Control Panel
+    <div className="max-w-4xl mx-auto p-4 md:p-8 space-y-8 animate-in fade-in duration-700">
+      <div className="bg-white rounded-3xl shadow-2xl p-6 md:p-10 border border-slate-100">
+        <h2 className="text-2xl font-black text-slate-800 mb-8 flex items-center gap-3 uppercase tracking-tight">
+          <i className="fas fa-user-edit text-blue-600"></i> Patient Status Update
         </h2>
         
         {message && (
-          <div className={`mb-6 p-4 rounded-xl flex items-center gap-3 transition-all ${
-            message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+          <div className={`mb-8 p-5 rounded-2xl flex items-center gap-4 transition-all border ${
+            message.type === 'success' ? 'bg-green-50 text-green-700 border-green-100' : 'bg-red-50 text-red-700 border-red-100'
           }`}>
-            <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`}></i>
-            <span className="font-medium">{message.text}</span>
+            <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} text-xl`}></i>
+            <span className="font-bold">{message.text}</span>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <label className="text-sm font-bold text-slate-500 uppercase tracking-wider block">UHID / Patient ID</label>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-3">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">UHID (Medical ID)</label>
             <input
               type="text"
               value={uhid}
               onChange={(e) => setUhid(e.target.value.toUpperCase())}
-              placeholder="e.g. 1234"
-              className="w-full px-4 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-lg font-mono"
+              placeholder="E.G. 1234"
+              className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all text-lg font-mono font-bold"
             />
           </div>
           
-          <div className="space-y-2">
-            <label className="text-sm font-bold text-slate-500 uppercase tracking-wider block">Patient Name</label>
+          <div className="space-y-3">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Full Patient Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Demo Name"
-              className="w-full px-4 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-lg"
+              placeholder="Enter Name"
+              className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all text-lg font-bold"
             />
           </div>
 
-          <div className="md:col-span-2 space-y-2">
-            <label className="text-sm font-bold text-slate-500 uppercase tracking-wider block">OT Status</label>
+          <div className="md:col-span-2 space-y-3">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Current OT Status</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as OTStatus)}
-              className="w-full px-4 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-lg appearance-none cursor-pointer"
+              className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all text-lg appearance-none cursor-pointer font-bold"
             >
               {Object.values(OTStatus).map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
@@ -98,67 +97,64 @@ export const StaffUpdateForm: React.FC = () => {
             </select>
           </div>
 
-          <div className="md:col-span-2 pt-4">
+          <div className="md:col-span-2 pt-6">
             <button
               type="submit"
-              className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xl rounded-xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2"
+              className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xl rounded-2xl shadow-xl shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-3 uppercase tracking-widest"
             >
-              <i className="fas fa-plus-circle"></i> Update / Add Record
+              <i className="fas fa-save"></i> Commit Changes
             </button>
           </div>
         </form>
       </div>
 
-      {/* Matching the screenshot provided by user */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
-        <div className="p-6 bg-white border-b border-slate-50 flex justify-between items-center">
-          <h3 className="font-bold text-slate-800 text-xl">Active OT List</h3>
-          <span className="bg-blue-100 text-blue-700 px-4 py-1.5 rounded-full text-sm font-black">
+      <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
+        <div className="p-8 bg-slate-50/50 border-b border-slate-100 flex justify-between items-center">
+          <h3 className="font-black text-slate-800 text-xl uppercase tracking-tight">Active Operation List</h3>
+          <span className="bg-blue-600 text-white px-5 py-1.5 rounded-full text-xs font-black tracking-widest uppercase shadow-lg shadow-blue-200">
             {records.length} Records
           </span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-slate-50/50 text-slate-400 uppercase text-[10px] font-black tracking-[0.2em]">
+            <thead className="bg-slate-50 text-slate-400 uppercase text-[10px] font-black tracking-widest">
               <tr>
-                <th className="px-8 py-4 text-left">UHID</th>
-                <th className="px-8 py-4 text-left">Patient</th>
-                <th className="px-8 py-4 text-left">Status</th>
-                <th className="px-8 py-4 text-right">Actions</th>
+                <th className="px-10 py-5 text-left">UHID</th>
+                <th className="px-10 py-5 text-left">Patient</th>
+                <th className="px-10 py-5 text-left">Current Status</th>
+                <th className="px-10 py-5 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50">
+            <tbody className="divide-y divide-slate-100">
               {records.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-8 py-16 text-center text-slate-400 italic">
-                    <i className="fas fa-folder-open mb-3 text-4xl block"></i>
-                    No patient records currently active.
+                  <td colSpan={4} className="px-10 py-24 text-center text-slate-400">
+                    <i className="fas fa-folder-open mb-4 text-6xl block opacity-20"></i>
+                    <span className="font-black uppercase tracking-widest text-xs">No entries found</span>
                   </td>
                 </tr>
               ) : (
                 records.map((r) => (
-                  <tr key={`${r.uhid}-${r.lastUpdated}`} className="hover:bg-slate-50/50 transition-colors group">
-                    <td className="px-8 py-5 font-mono font-bold text-slate-600">{r.uhid}</td>
-                    <td className="px-8 py-5 font-bold text-slate-800 text-lg">{r.name}</td>
-                    <td className="px-8 py-5">
-                      <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200">
+                  <tr key={`${r.uhid}-${r.lastUpdated}`} className="hover:bg-blue-50/30 transition-colors group">
+                    <td className="px-10 py-6 font-mono font-black text-slate-500">{r.uhid}</td>
+                    <td className="px-10 py-6 font-black text-slate-800 text-lg">{r.name}</td>
+                    <td className="px-10 py-6">
+                      <span className="px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest bg-slate-100 text-slate-500 border border-slate-200">
                         {r.status}
                       </span>
                     </td>
-                    <td className="px-8 py-5 text-right space-x-3">
+                    <td className="px-10 py-6 text-right space-x-2">
                       <button 
                         onClick={() => handleEdit(r)}
-                        className="text-blue-600 hover:text-blue-800 p-2 rounded-lg hover:bg-blue-50 transition-all"
-                        title="Edit Record"
+                        className="text-blue-500 hover:text-blue-700 p-3 rounded-xl hover:bg-blue-50 transition-all"
                       >
-                        <i className="fas fa-edit text-lg"></i>
+                        <i className="fas fa-pen-to-square text-lg"></i>
                       </button>
                       <button 
                         onClick={() => handleDelete(r.uhid)}
-                        className="text-red-500 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition-all cursor-pointer"
-                        title="Delete Record"
+                        className="text-red-400 hover:text-red-600 p-3 rounded-xl hover:bg-red-50 transition-all cursor-pointer"
                       >
-                        <i className="fas fa-trash text-lg"></i>
+                        <i className="fas fa-trash-can text-lg"></i>
                       </button>
                     </td>
                   </tr>
