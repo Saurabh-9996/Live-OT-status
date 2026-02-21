@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { ViewMode } from '../types';
+import { Hospital, LogOut, UserCircle } from 'lucide-react';
 
 interface HeaderProps {
   viewMode: ViewMode;
@@ -15,7 +16,7 @@ export const Header: React.FC<HeaderProps> = ({ viewMode, onLogout }) => {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center gap-4">
           <div className="bg-blue-600 w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
-            <i className="fas fa-hospital-user"></i>
+            <Hospital size={20} />
           </div>
           <div>
             <h1 className="text-xl font-black text-slate-800 tracking-tight uppercase leading-none">
@@ -36,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({ viewMode, onLogout }) => {
             onClick={onLogout}
             className="bg-slate-100 hover:bg-red-50 text-slate-600 hover:text-red-600 px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all flex items-center gap-2 border border-slate-200 hover:border-red-100"
           >
-            <i className="fas fa-sign-out-alt"></i> Logout
+            <LogOut size={14} /> Logout
           </button>
         </div>
       </div>
