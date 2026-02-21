@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { dbService } from '../services/dbService';
 import { getSmartHospitalTip } from '../services/geminiService';
+import { Sparkles } from 'lucide-react';
 
 export const Ticker: React.FC = () => {
   const [updates, setUpdates] = useState<string[]>([]);
@@ -33,12 +34,25 @@ export const Ticker: React.FC = () => {
     };
   }, []);
 
-  const tickerContent = [...updates, `🌟 SMART TIP: ${aiTip}`, "Stay hydrated and reach out to the help desk if you need assistance."].join(" • ");
-
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-blue-900 text-blue-100 py-3 overflow-hidden z-50 shadow-2xl border-t border-blue-800">
-      <div className="animate-ticker text-xl font-bold">
-        {tickerContent} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {tickerContent}
+      <div className="animate-ticker text-xl font-bold flex items-center gap-8">
+        {updates.map((u, i) => (
+          <span key={i}>{u}</span>
+        ))}
+        <span className="flex items-center gap-2 text-amber-400">
+          <Sparkles size={20} /> SMART TIP: {aiTip}
+        </span>
+        <span>Stay hydrated and reach out to the help desk if you need assistance.</span>
+        
+        {/* Duplicate for seamless loop */}
+        {updates.map((u, i) => (
+          <span key={`dup-${i}`}>{u}</span>
+        ))}
+        <span className="flex items-center gap-2 text-amber-400">
+          <Sparkles size={20} /> SMART TIP: {aiTip}
+        </span>
+        <span>Stay hydrated and reach out to the help desk if you need assistance.</span>
       </div>
     </div>
   );
