@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { OTStatus, PatientRecord } from '../types';
 import { dbService } from '../services/dbService';
+import { UserPen, CircleCheck, CircleAlert, Save, List, SquarePen, Trash2, FolderOpen } from 'lucide-react';
 
 export const StaffUpdateForm: React.FC = () => {
   const [uhid, setUhid] = useState('');
@@ -49,14 +50,14 @@ export const StaffUpdateForm: React.FC = () => {
     <div className="max-w-4xl mx-auto p-4 md:p-8 space-y-8 animate-in fade-in duration-700">
       <div className="bg-white rounded-3xl shadow-2xl p-6 md:p-10 border border-slate-100">
         <h2 className="text-2xl font-black text-slate-800 mb-8 flex items-center gap-3 uppercase tracking-tight">
-          <i className="fas fa-user-edit text-blue-600"></i> Patient Status Update
+          <UserPen className="text-blue-600" /> Patient Status Update
         </h2>
         
         {message && (
           <div className={`mb-8 p-5 rounded-2xl flex items-center gap-4 transition-all border ${
             message.type === 'success' ? 'bg-green-50 text-green-700 border-green-100' : 'bg-red-50 text-red-700 border-red-100'
           }`}>
-            <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} text-xl`}></i>
+            {message.type === 'success' ? <CircleCheck className="text-xl" /> : <CircleAlert className="text-xl" />}
             <span className="font-bold">{message.text}</span>
           </div>
         )}
@@ -102,7 +103,7 @@ export const StaffUpdateForm: React.FC = () => {
               type="submit"
               className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xl rounded-2xl shadow-xl shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-3 uppercase tracking-widest"
             >
-              <i className="fas fa-save"></i> Commit Changes
+              <Save /> Commit Changes
             </button>
           </div>
         </form>
@@ -129,7 +130,7 @@ export const StaffUpdateForm: React.FC = () => {
               {records.length === 0 ? (
                 <tr>
                   <td colSpan={4} className="px-10 py-24 text-center text-slate-400">
-                    <i className="fas fa-folder-open mb-4 text-6xl block opacity-20"></i>
+                    <FolderOpen size={64} className="mb-4 mx-auto opacity-20" />
                     <span className="font-black uppercase tracking-widest text-xs">No entries found</span>
                   </td>
                 </tr>
@@ -148,13 +149,13 @@ export const StaffUpdateForm: React.FC = () => {
                         onClick={() => handleEdit(r)}
                         className="text-blue-500 hover:text-blue-700 p-3 rounded-xl hover:bg-blue-50 transition-all"
                       >
-                        <i className="fas fa-pen-to-square text-lg"></i>
+                        <SquarePen size={20} />
                       </button>
                       <button 
                         onClick={() => handleDelete(r.uhid)}
                         className="text-red-400 hover:text-red-600 p-3 rounded-xl hover:bg-red-50 transition-all cursor-pointer"
                       >
-                        <i className="fas fa-trash-can text-lg"></i>
+                        <Trash2 size={20} />
                       </button>
                     </td>
                   </tr>
