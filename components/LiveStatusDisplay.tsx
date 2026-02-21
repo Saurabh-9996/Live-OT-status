@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { OTStatus, PatientRecord } from '../types';
 import { dbService } from '../services/dbService';
+import { Monitor, ClipboardCheck } from 'lucide-react';
 
 const getStatusBadgeClass = (status: OTStatus) => {
   switch (status) {
@@ -93,7 +94,7 @@ export const LiveStatusDisplay: React.FC = () => {
       <div className="z-30 bg-white border-b border-slate-200 px-12 py-10 flex justify-between items-center shadow-sm">
         <div className="flex items-center gap-6">
           <div className="bg-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-100">
-            <i className="fas fa-tv text-white text-3xl"></i>
+            <Monitor className="text-white" size={32} />
           </div>
           <div>
             <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tight">Live Surgery Status Board</h2>
@@ -134,7 +135,7 @@ export const LiveStatusDisplay: React.FC = () => {
 
         {records.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center opacity-30 grayscale scale-110">
-            <i className="fas fa-clipboard-check text-[12rem] mb-10 text-blue-200"></i>
+            <ClipboardCheck size={160} className="mb-10 text-blue-200" />
             <h3 className="text-6xl font-black uppercase tracking-widest text-slate-300">No Active Procedures</h3>
           </div>
         ) : (
